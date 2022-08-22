@@ -4,7 +4,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 
-	"main/src/modules/user/models"
+	UserModels "main/src/modules/user/models"
 )
 
 var DB *gorm.DB
@@ -16,7 +16,7 @@ func ConnectDatabase() {
 		panic("Failed to connect to database!")
 	}
 
-	db.AutoMigrate(models.User{})
+	db.AutoMigrate(UserModels.User{})
 
 	DB = db
 }

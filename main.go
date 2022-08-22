@@ -1,20 +1,17 @@
 package main
 
 import (
-	"net/http"
-
 	"main/src/database"
 
 	"github.com/gin-gonic/gin"
+
+	controllers "main/src/modules/user"
 )
 
 func main() {
-	r := gin.Default()
-
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"data": "hello world"})
-	})
+	router := gin.Default()
+	router.POST("/users/sign-in", controllers.SignIn)
 
 	database.ConnectDatabase()
-	r.Run()
+	router.Run(":4000")
 }
