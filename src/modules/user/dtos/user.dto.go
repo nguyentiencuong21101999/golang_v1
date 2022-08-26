@@ -1,4 +1,4 @@
-package UserDto
+package dto
 
 type UserDTO struct {
 	UserId   int32  `json:"userId"`
@@ -7,6 +7,6 @@ type UserDTO struct {
 }
 
 type SignInDTO struct {
-	Username string `json:"userName"`
+	Username string `json:"userName" binding:"required,min=1"`
 	Password string `json:"password"`
 }

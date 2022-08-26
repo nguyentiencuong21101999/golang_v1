@@ -1,4 +1,4 @@
-package UserModels
+package models
 
 type User struct {
 	UserId   uint   `json:"userId" gorm:"primary_key;autoIncrement;column:UserId"`
