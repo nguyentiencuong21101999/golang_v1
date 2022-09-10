@@ -11,8 +11,8 @@ import (
 )
 
 type A struct {
-	user string
-	pas  []string
+	User string   `xml:"user"`
+	Pas  []string `json:"pas"`
 }
 
 func main() {
@@ -22,8 +22,8 @@ func main() {
 
 	router.GET("/test", func(c *gin.Context) {
 		a := A{
-			user: "abc",
-			pas: []string{
+			User: "abc",
+			Pas: []string{
 				"a",
 			},
 		}
