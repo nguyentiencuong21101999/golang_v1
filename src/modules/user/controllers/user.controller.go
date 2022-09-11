@@ -1,24 +1,23 @@
 package controller
 
 import (
-	"log"
+	"main/src/database"
+	console "main/src/helpers/consoles"
+	"main/src/modules/user/models"
 	"net/http"
-
-	userDTO "main/src/modules/user/dtos"
 
 	"github.com/gin-gonic/gin"
 )
 
 func SignIn(c *gin.Context) {
-	var params userDTO.SignInDTO
-	// if err := c.ShouldBindBodyWith(&params, binding.JSON); err != nil {
-	// 	log.Printf("%+v", err)
-	// }
-	if err := c.ShouldBindJSON(&params); err != nil {
-		log.Printf("%+v", err)
-	}
+	//params := c.MustGet("params")
+
+	result := database.DB.First(&models.User{UserId: 1})
+
+	console.Log(result.Value)
+
 	c.JSON(http.StatusOK, gin.H{
-		"data": params,
+		"data": result,
 	})
 
 }

@@ -1,10 +1,11 @@
 package console
 
 import (
+	"encoding/json"
 	"fmt"
 )
 
 func Log(m interface{}) {
-	log := fmt.Sprintf("%+v", m)
-	fmt.Println(log)
+	logs, _ := json.MarshalIndent(m, "", "")
+	fmt.Printf("============== %s\n", logs)
 }

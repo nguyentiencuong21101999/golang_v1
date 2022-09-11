@@ -1,25 +1,20 @@
 package middleware
 
 import (
-	"github.com/gin-gonic/gin"
+	UserDTO "main/src/modules/user/dtos"
+	"net/http"
 
-	userDTO "main/src/modules/user/dtos"
+	"github.com/gin-gonic/gin"
 )
 
 func TransformAndValidateSignInReq(c *gin.Context) {
-	var params userDTO.SignInDTO
-	if err := c.ShouldBindJSON(&params); err != nil {
-		// errs := new(errors.ErrorsResp)
-
-		// er := errs.Init("err.abc", "abc", 400)
-		// fmt.Println("abc", er)
-		// c.JSON(http.StatusOK, gin.H{
-		// 	"datas": c.ShouldBindJSON(&e),
-		// })
-
-		// c.AbortWithError(err.Ini)
-		return
+	var params *UserDTO.SignInDTO
+	err := c.ShouldBindJSON(&params)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"error": err.Error(),
+		})
+		c.Abort()
 	}
-	return
-	// c.Next()
+	c.Set("params", params)
 }

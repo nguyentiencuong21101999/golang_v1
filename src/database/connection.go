@@ -4,6 +4,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 
+	console "main/src/helpers/consoles"
 	"main/src/modules/user/models"
 )
 
@@ -19,4 +20,5 @@ func ConnectDatabase() {
 	db.AutoMigrate(models.User{})
 
 	DB = db
+	console.Log("Database connect successfully")
 }
