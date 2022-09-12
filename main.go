@@ -1,6 +1,7 @@
 package main
 
 import (
+	"main/src/config"
 	"main/src/database"
 	"net/http"
 
@@ -10,25 +11,19 @@ import (
 	UserMiddleware "main/src/modules/user/middlewares"
 )
 
-type A struct {
-	User string `xml:"user"`
-	Pas  int    `json:"pas"`
-}
-
 func main() {
 	router := gin.Default()
+	config.LoadConf()
 
 	router.POST("/users/sign-in", UserMiddleware.TransformAndValidateSignInReq, UserController.SignIn)
-
 	router.GET("/heathCheck", func(c *gin.Context) {
-		// a := A{
-		// 	User: "abc",
-		// 	Pas:  1,
-		// }
 		c.JSON(http.StatusOK, gin.H{
 			"data": "success",
 		})
 	})
+
+	config.GetConfig("dbUri")
+	//console.Log(config.GetConfig("port"))
 	database.ConnectDatabase()
 	router.Run(":4000")
 }
