@@ -38,7 +38,7 @@ func main() {
 		c.JSON(http.StatusOK, responseWrapper.New(a, nil))
 	})
 
-	config.GetConfig("dbUri")
+	// config.GetConfig("dbUri")
 	//console.Log(config.GetConfig("port"))
 	database.ConnectDatabase()
 	router.Run(":4000")

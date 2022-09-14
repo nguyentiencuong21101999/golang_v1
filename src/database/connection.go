@@ -11,7 +11,7 @@ import (
 var DB *gorm.DB
 
 func ConnectDatabase() {
-	db, err := gorm.Open("mysql", "root:tiencuong@123@tcp(localhost:3306)/test")
+	db, err := gorm.Open("mysql", "root:AbCd@1234@tcp(localhost:3306)/test")
 
 	if err != nil {
 		panic("Failed to connect to database!")

@@ -3,18 +3,15 @@ package config
 import (
 	"encoding/json"
 	"fmt"
-	console "main/src/helpers/consoles"
 	"os"
-
-	"github.com/joho/godotenv"
 )
 
 func LoadConf() {
-	err := godotenv.Load(".env")
-	if err != nil {
-		panic("Load .env fail ...")
-	}
-	console.Log("Load .env successfully ...")
+	// err := nil //godotenv.Load(".env")
+	// if err != nil {
+	// 	panic("Load .env fail ...")
+	// }
+	// console.Log("Load .env successfully ...")
 }
 
 type Conf map[string]interface{}
