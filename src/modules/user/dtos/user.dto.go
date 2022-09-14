@@ -1,9 +1,8 @@
 package UserDTO
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 )
 
 type UserDTO struct {
@@ -19,12 +18,6 @@ type SignInDTO struct {
 
 func FromReq(c *gin.Context) (*SignInDTO, error) {
 	var params *SignInDTO
-	err := c.ShouldBindJSON(&params)
-	if err != nil {
-		c.JSON(http.StatusOK, gin.H{
-			"error": err.Error(),
-		})
-		c.Abort()
-	}
-	return params, nil
+	err := c.ShouldBindBodyWith(&params, binding.JSON)
+	return params, err
 }

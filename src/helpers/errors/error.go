@@ -1,26 +1,66 @@
 package errors
 
+import (
+	responseWrapper "main/src/helpers/response.wrapper"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
+
 type ErrorsResp struct {
-	status  int32
-	code    string
-	message string
+	Status  int    `json:"status"`
+	Code    string `json:"code"`
+	Message string `json:"message"`
 }
 
 type Errors struct {
-	
+	Code    string
+	message string
 }
 
-func (err *ErrorsResp) Init(code string, message string, status int32) *ErrorsResp {
-	err.code = code
-	err.message = message
-	err.status = status
+func NewError(code string, message string, status int) *ErrorsResp {
+	err := &ErrorsResp{
+		Code:    code,
+		Message: message,
+		Status:  status,
+	}
 	return err
 }
 
-// const errros = []struct{
-// 	a string
-// }{
-// 	"a"
-// 		//  new(ErrorsResp).Init("error.badRequest", "Bad request", 400)
-	
+var (
+	BadRequest          *ErrorsResp = NewError("error.badRequest", "Bad request", 400)
+	Unauthorized        *ErrorsResp = NewError("error.unauthorized", "Unauthorized", 401)
+	Forbidden           *ErrorsResp = NewError("error.forbiden", "Forbidden", 403)
+	Sensitive           *ErrorsResp = NewError("error.sensitive", "An error occurred, please try again later.", 400)
+	InternalServerError *ErrorsResp = NewError("error.internalServerError", "Internal server error.", 500)
+)
+
+func HandleError(err *ErrorsResp, c *gin.Context) {
+	if err.Status != http.StatusInternalServerError {
+		c.JSON(err.Status, responseWrapper.New(nil, &Errors{
+			Code:    err.Code,
+			message: err.Message,
+		}))
+	} else {
+		c.JSON(err.Status, responseWrapper.New(nil, &Errors{
+			Code:    err.Code,
+			message: err.Message,
+		}))
+	}
+
+}
+
+// func HandleError(err *ErrorsResp, c *gin.Context) {
+// 	if err.Status != http.StatusInternalServerError {
+// 		c.JSON(err.Status, responseWrapper.New(nil, &Errors{
+// 			Code:    err.Code,
+// 			message: err.Message,
+// 		}))
+// 	} else {
+// 		c.JSON(err.Status, responseWrapper.New(nil, &Errors{
+// 			Code:    err.Code,
+// 			message: err.Message,
+// 		}))
+// 	}
+
 // }

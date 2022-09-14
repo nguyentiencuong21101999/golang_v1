@@ -1,13 +1,14 @@
 package responseWrapper
 
 type ResponseWrapper struct {
-	data  interface{}
-	error interface{}
+	Data  interface{} `json:"data" `
+	Error interface{} `json:"error" default:"nil"`
 }
 
-func New(data interface{}) *ResponseWrapper {
-	var res *ResponseWrapper
-	res.data = data
-	res.error = nil
-	return res
+func New(data interface{}, err interface{}) *ResponseWrapper {
+	response := &ResponseWrapper{
+		Data:  data,
+		Error: err,
+	}
+	return response
 }
