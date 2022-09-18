@@ -6,6 +6,9 @@ import (
 )
 
 func Log(m interface{}) {
-	logs, _ := json.MarshalIndent(m, "", "")
+	logs, err := json.MarshalIndent(m, "", "")
+	if err != nil {
+		fmt.Println("err : ", err)
+	}
 	fmt.Printf("============== %s\n", logs)
 }

@@ -10,10 +10,7 @@ import (
 func TransformAndValidateSignInReq(c *gin.Context) {
 	_, err := UserDTO.FromReq(c)
 	if err != nil {
-		errors.HandleError(errors.BadRequest, c)
-		// c.JSON(http.StatusOK, gin.H{
-		// 	"error": err.Error(),
-		// })
+		errors.HandleError(errors.ParseError(err), c)
 		c.Abort()
 	}
 	c.Next()

@@ -1,8 +1,7 @@
 package controller
 
 import (
-	"net/http"
-
+	"main/src/helpers/errors"
 	responseWrapper "main/src/helpers/response.wrapper"
 	UserDTO "main/src/modules/user/dtos"
 	"main/src/modules/user/service"
@@ -12,7 +11,10 @@ import (
 
 func SignIn(c *gin.Context) {
 	params, _ := UserDTO.FromReq(c)
-	res := service.SignIn(params)
-	c.JSON(http.StatusOK, responseWrapper.New(&res, nil))
-
+	data, err := service.SignIn(params)
+	if err != nil {
+		errors.HandleError(err, c)
+		return
+	}
+	responseWrapper.HandleResp(responseWrapper.New(data, nil), c)
 }

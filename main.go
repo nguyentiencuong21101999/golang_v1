@@ -4,7 +4,6 @@ import (
 	"main/src/config"
 	"main/src/database"
 	console "main/src/helpers/consoles"
-	responseWrapper "main/src/helpers/response.wrapper"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -15,28 +14,31 @@ import (
 
 type A struct {
 	User string `json:"user"`
-	Pas  int    `json:"pas"`
+	Pas  string `json:"pas"`
 }
 
 func Test[T any](a []T) {
 	console.Log(a)
 
 }
+
+func test(params A) {
+	params.User = "a"
+
+	console.Log(params)
+}
 func main() {
-	// Test([]A{
-	// 	{User: "a", Pas: 123},
-	// })
+
+
+
 	router := gin.Default()
 	config.LoadConf()
 
-	router.POST("/users/sign-in", UserMiddleware.TransformAndValidateSignInReq, UserController.SignIn)
-	router.GET("/heathCheck", func(c *gin.Context) {
-		a := A{
-			User: "abc",
-			Pas:  1,
-		}
-		c.JSON(http.StatusOK, responseWrapper.New(a, nil))
+	router.GET("/heathcheck", func(c *gin.Context) {
+		c.JSON(http.StatusOK, "heathcheck")
 	})
+
+	router.POST("/users/sign-in", UserMiddleware.TransformAndValidateSignInReq, UserController.SignIn)
 
 	// config.GetConfig("dbUri")
 	//console.Log(config.GetConfig("port"))

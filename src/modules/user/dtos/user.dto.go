@@ -6,13 +6,13 @@ import (
 )
 
 type UserDTO struct {
-	UserId   int32  `json:"userId"`
+	UserId   int    `json:"userId"`
 	UserName string `json:"userName"`
-	Password string `json:"password"`
+	//Password string `json:"password"`
 }
 
 type SignInDTO struct {
-	Username string `json:"userName" binding:"required,min=2,max=32"`
+	Username string `json:"userName" binding:"required,min=2,max=32" `
 	Password string `json:"password" binding:"required"`
 }
 

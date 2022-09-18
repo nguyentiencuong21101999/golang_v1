@@ -1,8 +1,14 @@
 package responseWrapper
 
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
+
 type ResponseWrapper struct {
 	Data  interface{} `json:"data" `
-	Error interface{} `json:"error" default:"nil"`
+	Error interface{} `json:"error" `
 }
 
 func New(data interface{}, err interface{}) *ResponseWrapper {
@@ -11,4 +17,8 @@ func New(data interface{}, err interface{}) *ResponseWrapper {
 		Error: err,
 	}
 	return response
+}
+
+func HandleResp(data *ResponseWrapper, c *gin.Context) {
+	c.JSON(http.StatusOK, data)
 }
