@@ -20,10 +20,10 @@ type Config struct {
 	DbUri string `json:"dbUri"`
 }
 
-func GetConfig() Config {
+func GetConfig() *Config {
 	conf := Config{
 		Port:  os.Getenv("PORT"),
 		DbUri: os.Getenv("DB_URI"),
 	}
-	return conf
+	return &conf
 }

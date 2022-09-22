@@ -35,8 +35,8 @@ func main() {
 	wg := sync.WaitGroup{}
 	wg.Add(1)
 	go func() {
-		database.ConnectDatabase()
 		config.LoadConf()
+		database.ConnectDatabase()
 
 		router.GET("/heathcheck", func(c *gin.Context) {
 			c.JSON(http.StatusOK, "heathcheck")
