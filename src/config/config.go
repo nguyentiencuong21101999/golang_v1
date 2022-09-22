@@ -1,34 +1,29 @@
 package config
 
 import (
-	"encoding/json"
-	"fmt"
+	console "main/src/helpers/consoles"
 	"os"
+
+	"github.com/joho/godotenv"
 )
 
 func LoadConf() {
-	// err := nil //godotenv.Load(".env")
-	// if err != nil {
-	// 	panic("Load .env fail ...")
-	// }
-	// console.Log("Load .env successfully ...")
+	err := godotenv.Load(".env")
+	if err != nil {
+		panic("Load .env fail ...")
+	}
+	console.Log("Load .env successfully ...")
 }
-
-type Conf map[string]interface{}
 
 type Config struct {
-	Port  string
-	DbUri string
+	Port  string `json:"port"`
+	DbUri string `json:"dbUri"`
 }
 
-func GetConfig(key string) {
+func GetConfig() Config {
 	conf := Config{
 		Port:  os.Getenv("PORT"),
 		DbUri: os.Getenv("DB_URI"),
 	}
-	var result Conf
-
-	data, _ := json.Marshal(conf)
-	json.Unmarshal(data, &result)
-	fmt.Println(result["Port"])
+	return conf
 }

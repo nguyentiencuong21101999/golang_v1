@@ -5,6 +5,7 @@ import (
 	"main/src/database"
 	console "main/src/helpers/consoles"
 	"net/http"
+	"sync"
 
 	"github.com/gin-gonic/gin"
 
@@ -29,20 +30,21 @@ func test(params A) {
 }
 func main() {
 
-
-
 	router := gin.Default()
-	config.LoadConf()
 
-	router.GET("/heathcheck", func(c *gin.Context) {
-		c.JSON(http.StatusOK, "heathcheck")
-	})
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+	go func() {
+		database.ConnectDatabase()
+		config.LoadConf()
 
-	router.POST("/users/sign-in", UserMiddleware.TransformAndValidateSignInReq, UserController.SignIn)
-
-	// config.GetConfig("dbUri")
-	//console.Log(config.GetConfig("port"))
-	database.ConnectDatabase()
+		router.GET("/heathcheck", func(c *gin.Context) {
+			c.JSON(http.StatusOK, "heathcheck")
+		})
+		router.POST("/users/sign-in", UserMiddleware.TransformAndValidateSignInReq, UserController.SignIn)
+		wg.Done()
+	}()
+	wg.Wait()
 	router.Run(":4000")
 
 }

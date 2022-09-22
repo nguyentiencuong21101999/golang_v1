@@ -28,6 +28,7 @@ var (
 	Sensitive           *ErrorsResp = NewError("error.sensitive", "An error occurred, please try again later.", 400)
 	InternalServerError *ErrorsResp = NewError("error.internalServerError", "Internal server error.", 500)
 	AccountBlocked      *ErrorsResp = NewError("error.accountBlocked", "Account is blocked.", 400)
+	UserNotFound        *ErrorsResp = NewError("error.userNotFound", "User not found.", 400)
 )
 
 func ParseError(err error) *ErrorsResp {

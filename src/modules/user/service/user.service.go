@@ -21,7 +21,7 @@ func SignIn(params *UserDTO.SignInDTO) (*UserDTO.UserDTO, *errors.ErrorsResp) {
 
 	mapstructure.Decode(res.Value, &user)
 	if res.RowsAffected == 0 && user.UserId == 0 {
-		return nil, errors.AccountBlocked
+		return nil, errors.UserNotFound
 	} else {
 
 		return user, nil
