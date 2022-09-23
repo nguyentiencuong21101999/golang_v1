@@ -12,7 +12,7 @@ import (
 var DB *gorm.DB
 
 func ConnectDatabase() {
-	c.Log(config.GetConfig().DbUri)
+	c.Info(config.GetConfig().DbUri)
 	db, err := gorm.Open("mysql", config.GetConfig().DbUri)
 	db.LogMode(true)
 	if err != nil {
@@ -22,5 +22,5 @@ func ConnectDatabase() {
 	db.AutoMigrate(models.User{})
 
 	DB = db
-	c.Log("Database connect successfully")
+	c.Info("Database connect successfully")
 }

@@ -19,27 +19,25 @@ type A struct {
 }
 
 func Test[T any](a []T) {
-	console.Log(a)
+	console.Red(a)
 
 }
 
 func test(params A) {
 	params.User = "a"
 
-	console.Log(params)
+	console.Red(params)
 }
 func main() {
 
 	router := gin.Default()
-
 	wg := sync.WaitGroup{}
 	wg.Add(1)
 	go func() {
 		config.LoadConf()
 		database.ConnectDatabase()
-
-		router.GET("/heathcheck", func(c *gin.Context) {
-			c.JSON(http.StatusOK, "heathcheck")
+		router.GET("/healthcheck", func(c *gin.Context) {
+			c.JSON(http.StatusOK, "healthcheck")
 		})
 		router.POST("/users/sign-in", UserMiddleware.TransformAndValidateSignInReq, UserController.SignIn)
 		wg.Done()

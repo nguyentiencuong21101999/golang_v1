@@ -48,18 +48,3 @@ func HandleError(err *ErrorsResp, c *gin.Context) {
 	c.Abort()
 
 }
-
-// func HandleError(err *ErrorsResp, c *gin.Context) {
-// 	if err.Status != http.StatusInternalServerError {
-// 		c.JSON(err.Status, responseWrapper.New(nil, &Errors{
-// 			Code:    err.Code,
-// 			message: err.Message,
-// 		}))
-// 	} else {
-// 		c.JSON(err.Status, responseWrapper.New(nil, &Errors{
-// 			Code:    err.Code,
-// 			message: err.Message,
-// 		}))
-// 	}
-
-// }

@@ -12,7 +12,7 @@ func LoadConf() {
 	if err != nil {
 		panic("Load .env fail ...")
 	}
-	console.Log("Load .env successfully ...")
+	console.Info("Load .env successfully ...")
 }
 
 type Config struct {
